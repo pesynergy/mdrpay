@@ -20,7 +20,8 @@ class AppServiceProvider extends ServiceProvider
                 $mydata['sessionOut'] = 0;
                 $mydata['complaintsubject'] = \App\Model\Complaintsubject::get();
                 $mydata['company'] = \App\Model\Company::where('website', $_SERVER['HTTP_HOST'])->first();
-                $news = \App\Model\Companydata::where('company_id', $mydata['company']->id)->first();
+                $companyId = $mydata['company']?->id;
+$news = $companyId ? \App\Model\Companydata::where('company_id', $companyId)->first() : null;
                 $mydata['topheadcolor'] = \App\Model\PortalSetting::where('code', "topheadcolor")->first();
                 $mydata['sidebarcolor'] = \App\Model\PortalSetting::where('code', "sidebarcolor")->first();
                 $mydata['sidebarlightcolor'] = \App\Model\PortalSetting::where('code', "sidebarlightcolor")->first();
@@ -35,7 +36,7 @@ class AppServiceProvider extends ServiceProvider
                 }else{
                     $mydata['pincheck'] =  "no";
                 }
-                
+
                 if($news){
                     $mydata['news'] = $news->news;
                     $mydata['notice'] = $news->notice;
@@ -52,8 +53,8 @@ class AppServiceProvider extends ServiceProvider
                 if (\Auth::check()) {
                     $mydata['downlinebalance'] = 0;
                 }
-                $view->with('mydata', $mydata);    
-            }); 
+                $view->with('mydata', $mydata);
+            });
         } catch (\Exception $ex) {
             throw $ex;
         }
