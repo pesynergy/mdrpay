@@ -15,10 +15,10 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         return response()->json([
-             'error' => $exception->getMessage(),
+           'error' => $exception->getMessage(),
         'file' => $exception->getFile(),
         'line' => $exception->getLine(),
-        //  'trace' => $exception->getTrace(),
+        'trace' => $exception->getTrace(),
         ], 500);
     }
 
