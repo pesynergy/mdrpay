@@ -1,27 +1,27 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>@yield('title') - {{$mydata['company']->companyname?? 'no company'}}</title>
-
+        <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
+        <title><?php echo $__env->yieldContent('title'); ?> - <?php echo e($mydata['company']->companyname?? 'no company'); ?></title>
+        
         <!-- Favicon icon -->
 	    <link rel="icon" type="image/png" sizes="16x16" href="https://mdrpay.com/images/MDR-Logo.png">
-
+        
         <!-- Global stylesheets -->
-    	<link rel="stylesheet" href="{{asset('')}}new_assests/vendor/chartist/css/chartist.min.css">
-    	<link href="{{asset('')}}assets/js/plugins/materialToast/mdtoast.min.css" rel="stylesheet" type="text/css">
+    	<link rel="stylesheet" href="<?php echo e(asset('')); ?>new_assests/vendor/chartist/css/chartist.min.css">
+    	<link href="<?php echo e(asset('')); ?>assets/js/plugins/materialToast/mdtoast.min.css" rel="stylesheet" type="text/css">
     	  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     	<!-- Vectormap -->
-    	<link href="{{asset('')}}new_assests/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
-    	<link href="{{asset('')}}new_assests/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
-    	<link href="{{asset('')}}new_assests/vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
-    	<link class="main-css" href="{{asset('')}}new_assests/css/style.css" rel="stylesheet">
-
+    	<link href="<?php echo e(asset('')); ?>new_assests/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
+    	<link href="<?php echo e(asset('')); ?>new_assests/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+    	<link href="<?php echo e(asset('')); ?>new_assests/vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
+    	<link class="main-css" href="<?php echo e(asset('')); ?>new_assests/css/style.css" rel="stylesheet">
+    	
     	<!-- Datatable Stylesheet -->
-    	<link href="{{asset('')}}new_assests/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
-        <link href="{{asset('')}}new_assests/vendor/datatables/responsive/responsive.css" rel="stylesheet">
+    	<link href="<?php echo e(asset('')); ?>new_assests/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+        <link href="<?php echo e(asset('')); ?>new_assests/vendor/datatables/responsive/responsive.css" rel="stylesheet">
         <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
         <style>
             .deznav, .header, .nav-header {
@@ -36,57 +36,57 @@
             .table-responsive { overflow: visible !important;}
             .show, .menu-toggle .nav-header .logo-abbr {display:block;}
         </style>
-
+        
         <!--Old Styles-->
-    	<link href="{{asset('')}}new_assests/css/bootstrap-modal.css" rel="stylesheet" type="text/css">
-        @stack('style')
-
+    	<link href="<?php echo e(asset('')); ?>new_assests/css/bootstrap-modal.css" rel="stylesheet" type="text/css">
+        <?php echo $__env->yieldPushContent('style'); ?>
+        
         <!-- Required vendors -->
-    	<script src="{{asset('')}}new_assests/vendor/global/global.min.js"></script>
-    	<script src="{{asset('')}}new_assests/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-    	<script src="{{asset('')}}new_assests/vendor/chart-js/chart.bundle.min.js"></script>
-    	<script src="{{asset('')}}new_assests/vendor/owl-carousel/owl.carousel.js"></script>
-
+    	<script src="<?php echo e(asset('')); ?>new_assests/vendor/global/global.min.js"></script>
+    	<script src="<?php echo e(asset('')); ?>new_assests/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    	<script src="<?php echo e(asset('')); ?>new_assests/vendor/chart-js/chart.bundle.min.js"></script>
+    	<script src="<?php echo e(asset('')); ?>new_assests/vendor/owl-carousel/owl.carousel.js"></script>
+    
     	<!-- Chart piety plugin files -->
-    	<script src="{{asset('')}}new_assests/vendor/peity/jquery.peity.min.js"></script>
-
+    	<script src="<?php echo e(asset('')); ?>new_assests/vendor/peity/jquery.peity.min.js"></script>
+    
     	<!-- Apex Chart -->
-    	<script src="{{asset('')}}new_assests/vendor/apexchart/apexchart.js"></script>
+    	<script src="<?php echo e(asset('')); ?>new_assests/vendor/apexchart/apexchart.js"></script>
     <!--bootstrap js-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     	<!-- Dashboard 1 -->
-    	<script src="{{asset('')}}new_assests/js/dashboard/dashboard-1.js"></script>
-    	<script src="{{asset('')}}new_assests/js/custom.min.js"></script>
-    	<!--<script src="{{asset('')}}new_assests/js/deznav-init.js"></script>-->
-    	<!--<script src="{{asset('')}}new_assests/js/demo.js"></script>-->
-    	<script src="{{asset('')}}new_assests/js/styleSwitcher.js"></script>
-
+    	<script src="<?php echo e(asset('')); ?>new_assests/js/dashboard/dashboard-1.js"></script>
+    	<script src="<?php echo e(asset('')); ?>new_assests/js/custom.min.js"></script>
+    	<!--<script src="<?php echo e(asset('')); ?>new_assests/js/deznav-init.js"></script>-->
+    	<!--<script src="<?php echo e(asset('')); ?>new_assests/js/demo.js"></script>-->
+    	<script src="<?php echo e(asset('')); ?>new_assests/js/styleSwitcher.js"></script>
+    	
     	<!-- Datatable -->
 	    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-        <script src="{{asset('')}}new_assests/vendor/datatables/js/jquery.dataTables.min.js"></script>
-        <script src="{{asset('')}}new_assests/vendor/datatables/responsive/responsive.js"></script>
-        <script src="{{asset('')}}new_assests/js/plugins-init/datatables.init.js"></script>
-
+        <script src="<?php echo e(asset('')); ?>new_assests/vendor/datatables/js/jquery.dataTables.min.js"></script>
+        <script src="<?php echo e(asset('')); ?>new_assests/vendor/datatables/responsive/responsive.js"></script>
+        <script src="<?php echo e(asset('')); ?>new_assests/js/plugins-init/datatables.init.js"></script>
+        
         <script>
     		$(function () {
     			$('[data-bs-toggle="popover"]').popover()
     		})
     	</script>
-
+	
 	    <!--Old Script-->
-        <script type="text/javascript" src="{{asset('')}}assets/js/core/app.js"></script>
-        <script type="text/javascript" src="{{asset('')}}assets/js/core/dropzone.js"></script>
-        <script type="text/javascript" src="{{asset('')}}assets/js/plugins/materialToast/mdtoast.min.js"></script>
-        <script type="text/javascript" src="{{asset('')}}assets/js/core/momentjs.js"></script>
-    	<script type="text/javascript" src="{{asset('')}}assets/js/core/libraries/bootstrap.min.js"></script>
-        <script type="text/javascript" src="{{asset('')}}assets/js/plugins/loaders/blockui.min.js"></script>
-        <script type="text/javascript" src="{{asset('')}}assets/js/plugins/ui/ripple.min.js"></script>
-        <script type="text/javascript" src="{{asset('')}}assets/js/core/jquery.validate.min.js"></script>
-        <script type="text/javascript" src="{{asset('')}}assets/js/core/jquery.form.min.js"></script>
-        <script type="text/javascript" src="{{asset('')}}assets/js/core/sweetalert2.min.js"></script>
-        <script type="text/javascript" src="{{asset('')}}assets/js/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-        <script type="text/javascript" src="{{ asset('/assets/js/core/jQuery.print.js') }}"></script>
-        <script type="text/javascript" src="{{asset('')}}assets/js/plugins/forms/selects/select2.min.js"></script>
+        <script type="text/javascript" src="<?php echo e(asset('')); ?>assets/js/core/app.js"></script>
+        <script type="text/javascript" src="<?php echo e(asset('')); ?>assets/js/core/dropzone.js"></script>
+        <script type="text/javascript" src="<?php echo e(asset('')); ?>assets/js/plugins/materialToast/mdtoast.min.js"></script>
+        <script type="text/javascript" src="<?php echo e(asset('')); ?>assets/js/core/momentjs.js"></script>
+    	<script type="text/javascript" src="<?php echo e(asset('')); ?>assets/js/core/libraries/bootstrap.min.js"></script>
+        <script type="text/javascript" src="<?php echo e(asset('')); ?>assets/js/plugins/loaders/blockui.min.js"></script>
+        <script type="text/javascript" src="<?php echo e(asset('')); ?>assets/js/plugins/ui/ripple.min.js"></script>
+        <script type="text/javascript" src="<?php echo e(asset('')); ?>assets/js/core/jquery.validate.min.js"></script>
+        <script type="text/javascript" src="<?php echo e(asset('')); ?>assets/js/core/jquery.form.min.js"></script>
+        <script type="text/javascript" src="<?php echo e(asset('')); ?>assets/js/core/sweetalert2.min.js"></script>
+        <script type="text/javascript" src="<?php echo e(asset('')); ?>assets/js/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+        <script type="text/javascript" src="<?php echo e(asset('/assets/js/core/jQuery.print.js')); ?>"></script>
+        <script type="text/javascript" src="<?php echo e(asset('')); ?>assets/js/plugins/forms/selects/select2.min.js"></script>
 
         <script type="text/javascript">
             $(document).ready(function(){
@@ -94,7 +94,7 @@
                 getbalance();
 
                 $('.select').select2();
-
+                
                 $(".navbar-default a").each(function() {
                     if (this.href == window.location.href) {
                         $(this).addClass("active");
@@ -111,11 +111,11 @@
                     var agent    = $('#searchForm').find('input[name="agent"]').val();
                     var status   = $('#searchForm').find('[name="status"]').val();
 
-                    @if(isset($id))
-                        agent = "{{$id}}";
-                    @endif
+                    <?php if(isset($id)): ?>
+                        agent = "<?php echo e($id); ?>";
+                    <?php endif; ?>
 
-                    window.location.href = "{{ url('export/report') }}/"+type+"?fromdate="+fromdate+"&todate="+todate+"&agent="+agent+"&status="+status;
+                    window.location.href = "<?php echo e(url('export/report')); ?>/"+type+"?fromdate="+fromdate+"&todate="+todate+"&agent="+agent+"&status="+status;
                 });
 
                 $('.mydate').datepicker({
@@ -159,7 +159,7 @@
                     $('#formReset').button('loading');
                     $('#datatable').dataTable().api().ajax.reload();
                 });
-
+                
                 $('select').change(function(event) {
                     var ele = $(this);
                     if(ele.val() != ''){
@@ -232,7 +232,7 @@
                     if($(this).find('form').length){
                         $(this).find('form')[0].reset();
                     }
-
+        
                     if($(this).find('.select').length){
                         $(this).find('.select').val(null).trigger('change');
                     }
@@ -338,7 +338,7 @@
                         });
                     }
                 });
-
+                
                 $( "#notifyForm").validate({
                     rules: {
                         amount: {
@@ -388,7 +388,7 @@
 
             function getbalance(){
                 $.ajax({
-                    url: "{{url('mydata')}}",
+                    url: "<?php echo e(url('mydata')); ?>",
                     type: "GET",
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -402,7 +402,7 @@
                 });
             }
 
-            @if (isset($table) && $table == "yes")
+            <?php if(isset($table) && $table == "yes"): ?>
                 function datatableSetup(urls, datas, onDraw=function () {}, ele="#datatable", element={}) {
                     var options = {
                         dom: '<"datatable-header"l><"datatable-scroll"t><"datatable-footer"ip>',
@@ -420,7 +420,7 @@
                         },
                         preDrawCallback: function() {
                             $(this).find('tbody tr').slice(-3).find('.dropdown, .btn-group').removeClass('dropup');
-                        },
+                        },    
                         ajax:{
                             url : urls,
                             type: "post",
@@ -448,13 +448,13 @@
                     };
 
                     $.each(element, function(index, val) {
-                        options[index] = val;
+                        options[index] = val; 
                     });
 
                     var DT = $(ele).DataTable(options).on('draw.dt', onDraw);
                     return DT;
                 }
-            @endif
+            <?php endif; ?>
 
             function notify(msg, type="success", notitype="popup", element="none"){
                 if(notitype == "popup"){
@@ -521,12 +521,12 @@
             }
 
             function sessionOut(){
-                window.location.href = "{{route('logout')}}";
+                window.location.href = "<?php echo e(route('logout')); ?>";
             }
 
             function status(id, type){
                 $.ajax({
-                    url: `{{route('statementStatus')}}`,
+                    url: `<?php echo e(route('statementStatus')); ?>`,
                     type: 'post',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -597,9 +597,9 @@
                 $('#complaintModal').modal('show');
             }
         </script>
-
+        
         <script type="text/javascript">
-            var ROOT = "{{url('')}}" , SYSTEM;
+            var ROOT = "<?php echo e(url('')); ?>" , SYSTEM;
 
             $(document).ready(function () {
                 SYSTEM = {
@@ -770,7 +770,7 @@
                 }
                 document.cookie = name + "=" + (value || "") + expires + "; path=/";
             }
-
+            
             // Function to get a cookie
             function getCookie(name) {
                 const nameEQ = name + "=";
@@ -782,16 +782,16 @@
                 }
                 return null;
             }
-
+            
             // Function to delete a cookie
             function eraseCookie(name) {
                 document.cookie = name + "=; Max-Age=-99999999;";
             }
         </script>
-        @stack('script')
+        <?php echo $__env->yieldPushContent('script'); ?>
     </head>
 
-    <body class="navbar-top @yield('bodyClass')">
+    <body class="navbar-top <?php echo $__env->yieldContent('bodyClass'); ?>">
         <!--*******************
             Preloader start
         ********************-->
@@ -807,15 +807,15 @@
         ********************-->
         <div id="main-wrapper">
             <input type="hidden" name="dataType" value="">
-            @include('layouts.topbar')
-
+            <?php echo $__env->make('layouts.topbar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+    
             <div class="page-container">
                 <div class="page-content">
-                    {{-- @include('layouts.sidebar') --}}
-
+                    
+    
                     <div class="content-wrapper">
-                        @include('layouts.pageheader')
-                        @yield('content')
+                        <?php echo $__env->make('layouts.pageheader', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                        <?php echo $__env->yieldContent('content'); ?>
                     </div>
                 </div>
             </div>
@@ -827,11 +827,12 @@
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h6 class="modal-title">Wallet Load</h6>
                         </div>
-                        <form id="walletLoadForm" action="{{route('fundtransaction')}}" method="post">
+                        <form id="walletLoadForm" action="<?php echo e(route('fundtransaction')); ?>" method="post">
                             <div class="modal-body">
                                 <div class="row">
                                     <input type="hidden" name="type" value="loadwallet">
-                                    {{ csrf_field() }}
+                                    <?php echo e(csrf_field()); ?>
+
                                     <div class="form-group col-md-12">
                                         <label>Wallet Type</label>
                                         <select name="wallet" class="form-control select" id="select" required>
@@ -861,7 +862,7 @@
                     </div>
                 </div>
             </div>
-
+                
             <div id="notifyModal" class="modal fade" data-backdrop="false" data-keyboard="false">
                 <div class="modal-dialog modal-sm">
                     <div class="modal-content">
@@ -869,11 +870,12 @@
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h6 class="modal-title">App Notify</h6>
                         </div>
-                        <form id="notifyForm" action="{{route('fundtransaction')}}" method="post">
+                        <form id="notifyForm" action="<?php echo e(route('fundtransaction')); ?>" method="post">
                             <div class="modal-body">
                                 <div class="row">
                                     <input type="hidden" name="type" value="appnotify">
-                                    {{ csrf_field() }}
+                                    <?php echo e(csrf_field()); ?>
+
                                     <div class="form-group col-md-12">
                                         <label>Notification Type</label>
                                         <select name="sendtype" class="form-control select" required>
@@ -902,7 +904,7 @@
                     </div>
                 </div>
             </div>
-
+    
             <div id="editModal" class="modal fade" data-backdrop="false" data-keyboard="false">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -910,12 +912,13 @@
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h6 class="modal-title">Edit Report</h6>
                         </div>
-                        <form id="editForm" action="{{route('statementUpdate')}}" method="post">
+                        <form id="editForm" action="<?php echo e(route('statementUpdate')); ?>" method="post">
                             <div class="modal-body">
                                 <div class="row">
                                     <input type="hidden" name="id">
                                     <input type="hidden" name="actiontype" value="">
-                                    {{ csrf_field() }}
+                                    <?php echo e(csrf_field()); ?>
+
                                     <div class="form-group col-md-6">
                                         <label>Status</label>
                                         <select name="status" class="form-control select" required>
@@ -928,25 +931,25 @@
                                             <option value="chargeback">Charge Back</option>
                                         </select>
                                     </div>
-
+            
                                     <div class="form-group col-md-6">
                                         <label>Ref No</label>
                                         <input type="text" name="refno" class="form-control" placeholder="Enter Vle id" required="">
                                     </div>
                                 </div>
-
+            
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <label>Txn Id</label>
                                         <input type="text" name="txnid" class="form-control" placeholder="Enter Vle id" required="">
                                     </div>
-
+            
                                     <div class="form-group col-md-6">
                                         <label>Pay Id</label>
                                         <input type="text" name="payid" class="form-control" placeholder="Enter Vle id" required="">
                                     </div>
                                 </div>
-
+            
                                 <div class="row">
                                     <div class="form-group col-md-12">
                                         <label>Remark</label>
@@ -962,7 +965,7 @@
                     </div>
                 </div>
             </div>
-
+    
             <div id="complaintModal" class="modal fade" data-backdrop="false" data-keyboard="false">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -970,12 +973,13 @@
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h6 class="modal-title">Raise Complaint</h6>
                         </div>
-                        <form id="complaintForm" action="{{route('complaintstore')}}" method="post">
+                        <form id="complaintForm" action="<?php echo e(route('complaintstore')); ?>" method="post">
                             <div class="modal-body">
                                 <input type="hidden" name="id" value="new">
                                 <input type="hidden" name="product">
                                 <input type="hidden" name="transaction_id">
-                                {{ csrf_field() }}
+                                <?php echo e(csrf_field()); ?>
+
                                 <div class="form-group">
                                     <label>Bank Utr</label>
                                     <input type="text" name="subject" class="form-control" placeholder="Enter value" required="">
@@ -996,3 +1000,4 @@
         </div>
     </body>
 </html>
+<?php /**PATH D:\xampp\htdocs\mdrpay\resources\views/layouts/app.blade.php ENDPATH**/ ?>

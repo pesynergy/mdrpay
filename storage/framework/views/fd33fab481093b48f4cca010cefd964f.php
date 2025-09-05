@@ -146,4 +146,4 @@
     		<?php endif; ?>
 		</ul>
 	</div>
-</div><?php /**PATH D:\project\htdocs\project\mdrpay\resources\views/layouts/newsidebar.blade.php ENDPATH**/ ?>
+</div><?php /**PATH D:\xampp\htdocs\mdrpay\resources\views/layouts/newsidebar.blade.php ENDPATH**/ ?>

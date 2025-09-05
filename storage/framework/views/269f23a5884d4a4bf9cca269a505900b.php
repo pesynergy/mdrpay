@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
-        <title><?php echo $__env->yieldContent('title'); ?> - <?php echo e($mydata['company']->companyname ?? 'No company'); ?></title>
+        <title><?php echo $__env->yieldContent('title'); ?> - <?php echo e($mydata['company']->companyname?? 'no company'); ?></title>
 
         <!-- Favicon icon -->
 	    <link rel="icon" type="image/png" sizes="16x16" href="https://mdrpay.com/images/MDR-Logo.png">
@@ -12,7 +12,7 @@
         <!-- Global stylesheets -->
     	<link rel="stylesheet" href="<?php echo e(asset('')); ?>new_assests/vendor/chartist/css/chartist.min.css">
     	<link href="<?php echo e(asset('')); ?>assets/js/plugins/materialToast/mdtoast.min.css" rel="stylesheet" type="text/css">
-
+    	  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     	<!-- Vectormap -->
     	<link href="<?php echo e(asset('')); ?>new_assests/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
     	<link href="<?php echo e(asset('')); ?>new_assests/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
@@ -52,7 +52,8 @@
 
     	<!-- Apex Chart -->
     	<script src="<?php echo e(asset('')); ?>new_assests/vendor/apexchart/apexchart.js"></script>
-
+    <!--bootstrap js-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     	<!-- Dashboard 1 -->
     	<script src="<?php echo e(asset('')); ?>new_assests/js/dashboard/dashboard-1.js"></script>
     	<script src="<?php echo e(asset('')); ?>new_assests/js/custom.min.js"></script>
@@ -806,14 +807,14 @@
         ********************-->
         <div id="main-wrapper">
             <input type="hidden" name="dataType" value="">
-            <?php echo $__env->make('layouts.topbar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+            <?php echo $__env->make('layouts.topbar', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
             <div class="page-container">
                 <div class="page-content">
                     
 
                     <div class="content-wrapper">
-                        <?php echo $__env->make('layouts.pageheader', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                        <?php echo $__env->make('layouts.pageheader', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
                         <?php echo $__env->yieldContent('content'); ?>
                     </div>
                 </div>

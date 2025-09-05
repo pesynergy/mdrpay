@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -16,12 +17,12 @@ class AppServiceProvider extends ServiceProvider
         \Schema::defaultStringLength(191);
 
         try {
-            view()->composer('*', function ($view){
+            view()->composer('*', function ($view) {
                 $mydata['sessionOut'] = 0;
                 $mydata['complaintsubject'] = \App\Model\Complaintsubject::get();
                 $mydata['company'] = \App\Model\Company::where('website', $_SERVER['HTTP_HOST'])->first();
                 $companyId = $mydata['company']?->id;
-$news = $companyId ? \App\Model\Companydata::where('company_id', $companyId)->first() : null;
+                $news = $companyId ? \App\Model\Companydata::where('company_id', $companyId)->first() : null;
                 $mydata['topheadcolor'] = \App\Model\PortalSetting::where('code', "topheadcolor")->first();
                 $mydata['sidebarcolor'] = \App\Model\PortalSetting::where('code', "sidebarcolor")->first();
                 $mydata['sidebarlightcolor'] = \App\Model\PortalSetting::where('code', "sidebarlightcolor")->first();
@@ -31,26 +32,26 @@ $news = $companyId ? \App\Model\Companydata::where('company_id', $companyId)->fi
                 $mydata['schememanager'] = \App\Model\PortalSetting::where('code', "schememanager")->first();
                 $pincheck = \App\Model\PortalSetting::where('code', "pincheck")->first();
 
-                if($pincheck){
+                if ($pincheck) {
                     $mydata['pincheck'] = $pincheck->value;
-                }else{
+                } else {
                     $mydata['pincheck'] =  "no";
                 }
 
-                if($news){
+                if ($news) {
                     $mydata['news'] = $news->news;
                     $mydata['notice'] = $news->notice;
                     $mydata['billnotice'] = $news->billnotice;
                     $mydata['supportnumber'] = $news->number;
                     $mydata['supportemail'] = $news->email;
-                }else{
+                } else {
                     $mydata['news'] = "";
                     $mydata['notice'] = "";
                     $mydata['billnotice'] = "";
                     $mydata['supportnumber'] = "";
                     $mydata['supportemail'] = "";
                 }
-                if (\Auth::check()) {
+                if (Auth::check()) {
                     $mydata['downlinebalance'] = 0;
                 }
                 $view->with('mydata', $mydata);
