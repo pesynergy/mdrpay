@@ -15,8 +15,10 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         return response()->json([
-            'error' => 'Something went wrong!',
+            'error' => $exception->getMessage(),
+            'file' => $exception->getFile(),
+            'line' => $exception->getLine(),
+            'trace' => $exception->getTrace(),
         ], 500);
     }
-
 }

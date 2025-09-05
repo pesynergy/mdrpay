@@ -11,6 +11,7 @@
 |
 */
 
+use App\Http\Controllers\PayInController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 
@@ -25,7 +26,7 @@ Route::get('/payment-page', 'CollectionController@paymentPage')->name('payment.p
 Route::post('/process-card-payment', 'CollectionController@processCardPayment');
 
 
-Route::group(['prefix' => 'auth'], function() {
+Route::group(['prefix' => 'auth'], function () {
     Route::post('check', 'UserController@login')->name('authCheck');
     Route::get('logout', 'UserController@logout')->name('logout');
     Route::post('reset', 'UserController@passwordReset')->name('authReset');
@@ -37,7 +38,7 @@ Route::group(['prefix' => 'auth'], function() {
     Route::get('routechache', 'UserController@routechache');
 });
 
-Route::group(['middleware' => 'auth'], function() {
+Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', 'HomeController@index')->middleware("company")->name('home');
     Route::get('complete/profile', 'MemberController@completeProfile')->name('memberkyc');
     Route::post('wallet/balance', 'HomeController@getbalance')->name('getbalance');
@@ -49,33 +50,33 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('mycommission', 'HomeController@mycommission')->name("mycommission");
     Route::post('useronboard', 'HomeController@useronboard')->name("useronboard");
     Route::get('checkcommission', 'HomeController@checkcommission');
-    Route::group(['prefix'=> 'tools', 'middleware' => ['company']], function() {
+    Route::group(['prefix' => 'tools', 'middleware' => ['company']], function () {
         Route::get('{type}', 'RoleController@index')->name('tools');
         Route::post('{type}/store', 'RoleController@store')->name('toolsstore');
-        Route::post('setpermissions','RoleController@assignPermissions')->name('toolssetpermission');
-        Route::post('updatepermissions','RoleController@setPermissions')->name('toolsupdatepermission');
+        Route::post('setpermissions', 'RoleController@assignPermissions')->name('toolssetpermission');
+        Route::post('updatepermissions', 'RoleController@setPermissions')->name('toolsupdatepermission');
         Route::post('get/permission/{id}', 'RoleController@getpermissions')->name('permissions');
         Route::post('getdefault/permission/{id}', 'RoleController@getdefaultpermissions')->name('defaultpermissions');
     });
 
     /* Reporting & Actions */
-    Route::group(['prefix'=> 'statement', 'middleware' => ['company']], function() {
+    Route::group(['prefix' => 'statement', 'middleware' => ['company']], function () {
         Route::get('report/{type?}/{id?}', 'Report\ReportController@index')->name('reports');
         Route::post('report/static', 'Report\ReportController@fetchData')->name('reportstatic');
         Route::post('list/fetch/{type}/{id?}/{returntype?}', 'Report\CommonController@fetchData');
     });
 
-    Route::group(['prefix'=> 'export', 'middleware' => ['company']], function() {
+    Route::group(['prefix' => 'export', 'middleware' => ['company']], function () {
         Route::get('report/{type}', 'Report\ExportController@export');
     });
 
-    Route::group(['prefix' => 'report/action', 'middleware' => 'service'], function() {
+    Route::group(['prefix' => 'report/action', 'middleware' => 'service'], function () {
         Route::post('update', 'ActionController@update')->name('statementUpdate');
         Route::post('status', 'ActionController@status')->name('statementStatus');
         Route::post('delete', 'ActionController@delete')->name('statementDelete');
     });
 
-    Route::group(['prefix'=> 'member', 'middleware' => ['company']], function() {
+    Route::group(['prefix' => 'member', 'middleware' => ['company']], function () {
         Route::get('{type}/{action?}', 'MemberController@index')->name('member');
         Route::post('store', 'MemberController@create')->name('memberstore')->middleware('mpin');
         Route::post('commission/update', 'MemberController@commissionUpdate')->name('commissionUpdate');
@@ -83,60 +84,62 @@ Route::group(['middleware' => 'auth'], function() {
         Route::post('getpackagecommission', 'MemberController@getPackageCommission')->name('getMemberPackageCommission');
     });
 
-    Route::group(['prefix'=> 'portal', 'middleware' => ['company']], function() {
+    Route::group(['prefix' => 'portal', 'middleware' => ['company']], function () {
         Route::get('{type}', 'PortalController@index')->name('portal');
         Route::post('store', 'PortalController@create')->name('portalstore');
     });
 
-    Route::group(['prefix'=> 'logs', 'middleware' => ['company']], function() {
+    Route::group(['prefix' => 'logs', 'middleware' => ['company']], function () {
         Route::get('{type}', 'PortalController@logs')->name('portallogs');
     });
 
-    Route::group(['prefix'=> 'fund', 'middleware' => ['company']], function() {
+    Route::group(['prefix' => 'fund', 'middleware' => ['company']], function () {
         Route::get('{type}/{action?}', 'FundController@index')->name('fund');
         Route::post('transaction', 'FundController@transaction')->name('fundtransaction')->middleware('mpin');
     });
 
-    Route::group(['prefix'=> 'payout', 'middleware' => ['company', 'service']], function() {
+    Route::group(['prefix' => 'payout', 'middleware' => ['company', 'service']], function () {
         Route::post('transaction', 'PayoutController@payment')->name('payout')->middleware("balanceCheck");
     });
 
-    Route::group(['prefix'=> 'qrtest', 'middleware' => ['company', 'service']], function() {
+    Route::group(['prefix' => 'qrtest', 'middleware' => ['company', 'service']], function () {
         Route::post('transaction', 'Services\CollectionController@qrtest')->name('qrtest');
     });
 
-    Route::group(['prefix' => 'profile', 'middleware' => ['auth']], function() {
+    Route::group(['prefix' => 'profile', 'middleware' => ['auth']], function () {
         Route::get('/view/{id?}', 'SettingController@index')->name('profile');
         Route::post('update', 'SettingController@profileUpdate')->name('profileUpdate')->middleware('mpin');
     });
 
-    Route::group(['prefix' => 'setup', 'middleware' => ['company']], function() {
+    Route::group(['prefix' => 'setup', 'middleware' => ['company']], function () {
         Route::get('{type}/{id?}', 'SetupController@index')->name('setup');
         Route::post('update', 'SetupController@update')->name('setupupdate');
     });
 
-    Route::group(['prefix' => 'resources', 'middleware' => ['company']], function() {
+    Route::group(['prefix' => 'resources', 'middleware' => ['company']], function () {
         Route::get('{type}', 'ResourceController@index')->name('resource');
         Route::post('update', 'ResourceController@update')->name('resourceupdate');
         Route::post('get/{type}/commission', 'ResourceController@getCommission');
         Route::post('get/{type}/packagecommission', 'ResourceController@getPackageCommission');
     });
 
-    Route::group(['prefix' => 'apiswitch', 'middleware' => ['company']], function() {
+    Route::group(['prefix' => 'apiswitch', 'middleware' => ['company']], function () {
         Route::get('{type}/{id?}', 'ApiSwitchController@index')->name('apiswitch');
         Route::post('update', 'ApiSwitchController@update')->name('apiswitchupdate');
     });
 
-    Route::group(['prefix' => 'developer/api', 'middleware' => ['company', 'checkrole:apiuser']], function() {
+    Route::group(['prefix' => 'developer/api', 'middleware' => ['company', 'checkrole:apiuser']], function () {
         Route::get('{type}', 'ApiController@index')->name('apisetup');
         Route::post('update', 'ApiController@update')->name('apitokenstore');
         Route::post('token/delete', 'ApiController@tokenDelete')->name('tokenDelete');
     });
 
-    Route::group(['prefix' => 'complaint', 'middleware' => ['company']], function() {
+    Route::group(['prefix' => 'complaint', 'middleware' => ['company']], function () {
         Route::get('/', 'ComplaintController@index')->name('complaint');
         Route::post('store', 'ComplaintController@store')->name('complaintstore');
     });
 
     Route::get('commission', 'HomeController@checkcommission');
+
+    Route::get('Payment-PayIn', [PayInController::class, 'PayIn'])->name('payIn');
 });
