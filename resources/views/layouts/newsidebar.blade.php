@@ -124,6 +124,15 @@
 					<li><a href="{{route('reports', ['type' => 'payoutwallet'])}}">Payout Wallet</a></li>
 				</ul>
 			</li>
+			<li><a class="has-arrow ai-icon" href="javascript:void(0);" aria-expanded="false">
+					<i class="flaticon-381-layer-1"></i>
+					<span class="nav-text">Payment</span>
+				</a>
+				<ul aria-expanded="false">
+					<li><a href="{{ route('payIn') }}">Pay In</a></li>
+					<li><a href="#">Pay Out</a></li>
+				</ul>
+			</li>
 			@if (Myhelper::hasRole('apiuser'))
 			    <li><a class="has-arrow ai-icon" href="javascript:void(0);" aria-expanded="false">
     					<i class="flaticon-381-layer-1"></i>

@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>@yield('title') - {{$mydata['company']->companyname}}</title>
+        <title>@yield('title') - {{$mydata['company']->companyname?? 'no company'}}</title>
         
         <!-- Favicon icon -->
 	    <link rel="icon" type="image/png" sizes="16x16" href="https://mdrpay.com/images/MDR-Logo.png">
@@ -12,7 +12,7 @@
         <!-- Global stylesheets -->
     	<link rel="stylesheet" href="{{asset('')}}new_assests/vendor/chartist/css/chartist.min.css">
     	<link href="{{asset('')}}assets/js/plugins/materialToast/mdtoast.min.css" rel="stylesheet" type="text/css">
-    	
+    	  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     	<!-- Vectormap -->
     	<link href="{{asset('')}}new_assests/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
     	<link href="{{asset('')}}new_assests/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
@@ -52,7 +52,8 @@
     
     	<!-- Apex Chart -->
     	<script src="{{asset('')}}new_assests/vendor/apexchart/apexchart.js"></script>
-    
+    <!--bootstrap js-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     	<!-- Dashboard 1 -->
     	<script src="{{asset('')}}new_assests/js/dashboard/dashboard-1.js"></script>
     	<script src="{{asset('')}}new_assests/js/custom.min.js"></script>
