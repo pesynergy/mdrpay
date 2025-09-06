@@ -1,7 +1,7 @@
-@extends('layouts.app')
-@section('title', 'Scheme Manager')
-@section('pagetitle',  'Scheme Manager')
-@php
+
+<?php $__env->startSection('title', 'Scheme Manager'); ?>
+<?php $__env->startSection('pagetitle',  'Scheme Manager'); ?>
+<?php
     $table = "yes";
     $agentfilter = "hide";
 
@@ -10,9 +10,9 @@
         "1" => "Active",
         "0" => "De-active"
     ];
-@endphp
+?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 	<!-- row -->
 	<div class="container-fluid">
 		<div class="row">
@@ -51,12 +51,13 @@
             <div class="modal-header bg-slate">
                 <h6 class="modal-title"><span class="msg">Add</span> Scheme</h6>
             </div>
-            <form id="setupManager" action="{{route('resourceupdate')}}" method="post">
+            <form id="setupManager" action="<?php echo e(route('resourceupdate')); ?>" method="post">
                 <div class="modal-body">
                     <div class="row">
                         <input type="hidden" name="id">
                         <input type="hidden" name="actiontype" value="scheme">
-                        {{ csrf_field() }}
+                        <?php echo e(csrf_field()); ?>
+
                         <div class="form-group col-md-12">
                             <label>Name</label>
                             <input type="text" name="name" class="form-control" placeholder="Enter Bank Name" required="">
@@ -72,34 +73,36 @@
     </div> 
 </div> 
 
-@foreach($charge as $key => $value)
-    <div id="{{$key}}Modal" class="modal fade" role="dialog" data-backdrop="false">
+<?php $__currentLoopData = $charge; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+    <div id="<?php echo e($key); ?>Modal" class="modal fade" role="dialog" data-backdrop="false">
         <div class="modal-dialog  modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header bg-slate">
-                    <h4 class="modal-title">{{$key}} Charge</h4>
+                    <h4 class="modal-title"><?php echo e($key); ?> Charge</h4>
                 </div>
-                <form class="commissionForm" method="post" action="{{ route('resourceupdate') }}">
+                <form class="commissionForm" method="post" action="<?php echo e(route('resourceupdate')); ?>">
                     <div class="modal-body p-0" style="margin-bottom:20px">
-                        {!! csrf_field() !!}
+                        <?php echo csrf_field(); ?>
+
                         <input type="hidden" name="actiontype" value="commission">
                         <input type="hidden" name="scheme_id" value="">                
                         <table class="table table-bordered m-0">
                             <thead>
                                 <th>Operator</th>
-                                @if (Myhelper::hasRole('admin'))
+                                <?php if(Myhelper::hasRole('admin')): ?>
                                     <th>Charge Type</th>
-                                @endif
+                                <?php endif; ?>
                                 <th>Value</th>
                             </thead>
                             <tbody>
-                                @foreach ($value as $element)
+                                <?php $__currentLoopData = $value; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <tr>
                                         <td>
-                                            <input type="hidden" name="slab[]" value="{{$element->id}}">
-                                            {{$element->name}}
+                                            <input type="hidden" name="slab[]" value="<?php echo e($element->id); ?>">
+                                            <?php echo e($element->name); ?>
+
                                         </td>
-                                        @if (Myhelper::hasRole('admin'))     
+                                        <?php if(Myhelper::hasRole('admin')): ?>     
                                             <td class="p-t-0 p-b-0">
                                                 <select class="form-control" name="type[]" required="">
                                                     <option value="">Select Type</option>
@@ -107,12 +110,12 @@
                                                     <option value="flat" selected="selected">Flat (Rs)</option>
                                                 </select>
                                             </td>
-                                        @endif
+                                        <?php endif; ?>
                                         <td class="p-t-0 p-b-0">
                                             <input type="number" step="any" name="apiuser[]" placeholder="Enter Value" class="form-control" >
                                         </td>
                                     </tr>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </tbody>
                         </table>
                     </div>
@@ -124,7 +127,7 @@
             </div>
         </div>
     </div><!-- /.modal -->
-@endforeach
+<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
 <div id="commissionModal" class="modal fade" role="dialog" data-backdrop="false">
     <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -142,18 +145,19 @@
         </div>
     </div>
 </div> 
-@endsection
+<?php $__env->stopSection(); ?>
 <script>
     window.schemeConfig = {
-        fetchUrl: "{{ url('statement/list/fetch') }}/resource{{$type}}/0",
-        updateUrl: "{{ route('resourceupdate') }}",
-        getResourceUrl: "{{ url('resources/get') }}",
-        getMemberCommissionUrl: "{{ route('getMemberCommission') }}",
-        csrf: "{{ csrf_token() }}",
-        charges: @json($charge), 
-        isAdmin: @json(Myhelper::hasRole('admin'))
+        fetchUrl: "<?php echo e(url('statement/list/fetch')); ?>/resource<?php echo e($type); ?>/0",
+        updateUrl: "<?php echo e(route('resourceupdate')); ?>",
+        getResourceUrl: "<?php echo e(url('resources/get')); ?>",
+        getMemberCommissionUrl: "<?php echo e(route('getMemberCommission')); ?>",
+        csrf: "<?php echo e(csrf_token()); ?>",
+        charges: <?php echo json_encode($charge, 15, 512) ?>, 
+        isAdmin: <?php echo json_encode(Myhelper::hasRole('admin'), 15, 512) ?>
     };
 </script>
-@push('script')
-   <script src="{{ asset('js/resource/schemeManager.js') }}"></script>
-@endpush
+<?php $__env->startPush('script'); ?>
+   <script src="<?php echo e(asset('js/resource/schemeManager.js')); ?>"></script>
+<?php $__env->stopPush(); ?>
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\xampp\htdocs\mdrpay\resources\views/resource/scheme.blade.php ENDPATH**/ ?>

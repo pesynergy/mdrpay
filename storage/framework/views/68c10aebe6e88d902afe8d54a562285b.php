@@ -1,7 +1,7 @@
-@extends('layouts.app')
-@section('title', 'Company Manager')
-@section('pagetitle',  'Company Manager')
-@php
+
+<?php $__env->startSection('title', 'Company Manager'); ?>
+<?php $__env->startSection('pagetitle',  'Company Manager'); ?>
+<?php
     $table = "yes";
     $agentfilter = "hide";
 
@@ -10,8 +10,8 @@
         "1" => "Active",
         "0" => "De-active"
     ];
-@endphp
-@section('content')
+?>
+<?php $__env->startSection('content'); ?>
 <div class="container-fluid">
 		<div class="row">
             <div class="col-12">
@@ -50,12 +50,13 @@
             <div class="modal-header bg-slate">
                 <h6 class="modal-title"><span class="msg">Add</span> Company</h6>
             </div>
-            <form id="setupManager" action="{{ route('resourceupdate') }}" method="post">
+            <form id="setupManager" action="<?php echo e(route('resourceupdate')); ?>" method="post">
                 <div class="modal-body">
                     <div class="row">
                         <input type="hidden" name="id">
                         <input type="hidden" name="actiontype" value="company">
-                        {{ csrf_field() }}
+                        <?php echo e(csrf_field()); ?>
+
 
                         <div class="form-group col-md-12">
                             <label>Name</label>
@@ -88,13 +89,14 @@
         </div>
     </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
 <script>
-    const base_url = "{{ url('') }}";
-    const type = "{{ $type ?? '' }}";
-    const resourceupdate_url = "{{ route('resourceupdate') }}";
+    const base_url = "<?php echo e(url('')); ?>";
+    const type = "<?php echo e($type ?? ''); ?>";
+    const resourceupdate_url = "<?php echo e(route('resourceupdate')); ?>";
 </script>
 
-@push('script')
-    <script src="{{ asset('js/resource/companyManager.js') }}"></script>
-@endpush
+<?php $__env->startPush('script'); ?>
+    <script src="<?php echo e(asset('js/resource/companyManager.js')); ?>"></script>
+<?php $__env->stopPush(); ?>
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\xampp\htdocs\mdrpay\resources\views/resource/company.blade.php ENDPATH**/ ?>
