@@ -74,14 +74,14 @@ $(document).ready(function () {
                 });
 
                 return `
-                    <button type="button" class="btn btn-info btn-xs" onclick="editSetup(this)">
+                    <button type="button" class="btn btn-dark btn-xs" onclick="editSetup(this)">
                         <i class="fas fa-pencil-alt me-1"></i>Edit
                     </button>
-                    <button type="button" class="btn btn-info btn-xs" onclick="viewCommission(${full.id}, '${full.name}')">
+                    <button type="button" class="btn btn-dark btn-xs" onclick="viewCommission(${full.id}, '${full.name}')">
                         <i class="flaticon-381-list me-1"></i> View Commission
                     </button>
                     <div class="btn-group btn-group-fade">
-                        <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown">
+                        <button type="button" class="btn btn-dark btn-xs dropdown-toggle" data-toggle="dropdown">
                             <i class="flaticon-381-list-1 me-1"></i> Commission/Charge <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-right">${menu}</ul>
