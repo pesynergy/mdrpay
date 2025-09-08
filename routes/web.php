@@ -141,5 +141,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('commission', 'HomeController@checkcommission');
 
-    Route::get('Payment-PayIn', [PayInController::class, 'PayIn'])->name('payIn');
+    Route::get('payin', [PayInController::class, 'PayIn'])->name('payIn');
+    Route::post('/pay/credit-card', [PayInController::class, 'creditCardPay'])->name('pay.credit');
+    Route::post('/payment/callback', [PayInController::class, 'paymentCallback'])->name('payment.callback');
+
+
 });

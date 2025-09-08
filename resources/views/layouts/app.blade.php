@@ -821,7 +821,7 @@
             </div>
 
             <div id="walletLoadModal" class="modal fade" data-backdrop="false" data-keyboard="false">
-                <div class="modal-dialog modal-sm">
+                <div class="modal-dialog modal-sm modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header bg-slate">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>

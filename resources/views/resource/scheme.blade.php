@@ -46,10 +46,10 @@
 </div>
 
 <div id="setupModal" class="modal fade" data-backdrop="false" data-keyboard="false">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-slate">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
                 <h6 class="modal-title"><span class="msg">Add</span> Scheme</h6>
             </div>
             <form id="setupManager" action="{{route('resourceupdate')}}" method="post">
@@ -65,7 +65,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger btn-raised legitRipple" data-dismiss="modal" aria-hidden="true">Close</button>
+                    <button type="button" class="btn btn-danger btn-raised legitRipple" data-bs-dismiss="modal" aria-hidden="true">Close</button>
                     <button class="btn btn-info btn-raised legitRipple" type="submit" data-loading-text="<i class='fa fa-spin fa-spinner'></i> Submitting">Submit</button>
                 </div>
             </form>
@@ -85,7 +85,7 @@
                     <div class="modal-body p-0" style="margin-bottom:20px">
                         {!! csrf_field() !!}
                         <input type="hidden" name="actiontype" value="commission">
-                        <input type="hidden" name="scheme_id" value="">                
+                        <input type="hidden" name="scheme_id" value="">
                         <table class="table table-bordered m-0">
                             <thead>
                                 <th>Operator</th>
@@ -101,7 +101,7 @@
                                             <input type="hidden" name="slab[]" value="{{$element->id}}">
                                             {{$element->name}}
                                         </td>
-                                        @if (Myhelper::hasRole('admin'))     
+                                        @if (Myhelper::hasRole('admin'))
                                             <td class="p-t-0 p-b-0">
                                                 <select class="form-control" name="type[]" required="">
                                                     <option value="">Select Type</option>
@@ -150,12 +150,12 @@
     <script type="text/javascript">
     $(document).ready(function () {
         var url = "{{url('statement/list/fetch')}}/resource{{$type}}/0";
-        
+
         $('input[name="whitelable[]"]').val('0');
         $('input[name="md[]"]').val('0');
         $('input[name="distributor[]"]').val('0');
         $('input[name="retailer[]"]').val('0');
-        
+
         var onDraw = function() {
             $('input#schemeStatus').on('click', function(evt){
                 evt.stopPropagation();
@@ -165,7 +165,7 @@
                 if($(this).prop('checked')){
                     status = "1";
                 }
-                
+
                 $.ajax({
                     url: '{{ route('resourceupdate') }}',
                     type: 'post',
@@ -307,7 +307,7 @@
                             }
                         }
                     });
-    
+
                     setTimeout(function () {
                         form.find('span.pull-right').remove();
                     }, 10000);
@@ -323,7 +323,7 @@
             $('#setupModal').find('.msg').text("Add");
             $('#setupModal').find('form')[0].reset();
         });
-    
+
     });
 
     function addSetup(){
@@ -341,7 +341,7 @@
         $('#setupModal').find('input[name="name"]').val(name);
         $('#setupModal').modal('show');
     }
-    
+
     function commission(id, type, modal) {
         $.ajax({
             url: '{{ url('resources/get') }}/'+type+"/commission",
@@ -367,7 +367,7 @@
         .fail(function(errors) {
             notify('Oops', errors.status+'! '+errors.statusText, 'warning');
         });
-    
+
         $('#'+modal).find('input[name="scheme_id"]').val(id);
         $('#'+modal).modal('show');
     }
@@ -376,7 +376,7 @@
         if (id != '') {
             // Show loader
             $('#loader').show();
-    
+
             $.ajax({
                 url: '{{route("getMemberCommission")}}',
                 type: 'POST',

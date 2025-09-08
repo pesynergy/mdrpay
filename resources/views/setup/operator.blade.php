@@ -50,7 +50,7 @@
                                             </select>
                                         </div>
                                     @endif
-            
+
                                     @if($apis)
                                     <div class="form-group col-md-4">
                                         <select name="api_id" class="form-control select">
@@ -103,10 +103,10 @@
 </div>
 
 <div id="setupModal" class="modal fade" data-backdrop="false" data-keyboard="false">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-slate">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
                 <h6 class="modal-title"><span class="msg">Add</span> Operator</h6>
             </div>
             <form id="setupManager" action="{{route('setupupdate')}}" method="post">
@@ -130,7 +130,7 @@
                             <label>Min Range (Min Amount For Collection)</label>
                             <input type="text" name="range1" class="form-control" placeholder="Enter value" required="">
                         </div>
-                        
+
                         <div class="form-group col-md-6">
                             <label>Max Range (Max Amount For Collection)</label>
                             <input type="text" name="range2" class="form-control" placeholder="Enter value" required="">
@@ -160,7 +160,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger btn-raised legitRipple" data-dismiss="modal" aria-hidden="true">Close</button>
+                    <button type="button" class="btn btn-danger btn-raised legitRipple" data-bs-dismiss="modal" aria-hidden="true">Close</button>
                     <button class="btn btn-info btn-raised legitRipple" type="submit" data-loading-text="<i class='fa fa-spin fa-spinner'></i> Submitting">Submit</button>
                 </div>
             </form>
@@ -184,7 +184,7 @@
                 if($(this).prop('checked')){
                     status = "1";
                 }
-                
+
                 $.ajax({
                     url: '{{ route('setupupdate') }}',
                     type: 'post',
@@ -345,7 +345,7 @@
             $('#setupModal').find('.msg').text("Add");
             $('#setupModal').find('form')[0].reset();
         });
-    
+
     });
 
     function addSetup(){
@@ -365,7 +365,7 @@
         $('#setupModal').find('[name="api_id"]').select2().val(api_id).trigger('change');
         $('#setupModal').modal('show');
     }
-    
+
     function apiUpdate(ele, id){
         var api_id = $(ele).val();
         if(api_id != ""){
