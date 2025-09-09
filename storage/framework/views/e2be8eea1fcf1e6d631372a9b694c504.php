@@ -13,6 +13,12 @@
     	<link rel="stylesheet" href="<?php echo e(asset('')); ?>new_assests/vendor/chartist/css/chartist.min.css">
     	<link href="<?php echo e(asset('')); ?>assets/js/plugins/materialToast/mdtoast.min.css" rel="stylesheet" type="text/css">
     	  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+          <!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap JS Bundle (includes Popper) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
     	<!-- Vectormap -->
     	<link href="<?php echo e(asset('')); ?>new_assests/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
     	<link href="<?php echo e(asset('')); ?>new_assests/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">

@@ -1,6 +1,6 @@
-@extends('layouts.app')
 
-@php
+
+<?php
     // Set $type1 based on the value of $type
     $type1 = ($type == 'mis') ? 'reseller' : $type;
 
@@ -28,13 +28,13 @@
             ];
             break;
     }
-@endphp
+?>
 
-@section('title', ucwords($type1).' List')
-@section('pagetitle',  ucwords($type1).' List')
+<?php $__env->startSection('title', ucwords($type1).' List'); ?>
+<?php $__env->startSection('pagetitle',  ucwords($type1).' List'); ?>
 
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="default-height">
 	<!-- row -->
 	<div class="container-fluid">
@@ -42,14 +42,14 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="panel-title" style="text-transform:capitalize;">{{isset($role->name) ? $role->name : $type}} List</h4>
-                        @if (Myhelper::hasRole('admin') || ($role || sizeOf($roles) > 0))
+                        <h4 class="panel-title" style="text-transform:capitalize;"><?php echo e(isset($role->name) ? $role->name : $type); ?> List</h4>
+                        <?php if(Myhelper::hasRole('admin') || ($role || sizeOf($roles) > 0)): ?>
                             <div class="heading-elements">
-                                <a href="{{route('member', ['type' => $type, 'action' => 'create'])}}"><button type="button" class="btn btn-sm btn-info btn-raised heading-btn legitRipple">
+                                <a href="<?php echo e(route('member', ['type' => $type, 'action' => 'create'])); ?>"><button type="button" class="btn btn-sm btn-info btn-raised heading-btn legitRipple">
                                     <i class="flaticon-381-add-1" style="padding-right:5px;"></i> Add New
                                 </button></a>
                             </div>
-                        @endif
+                        <?php endif; ?>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -83,11 +83,12 @@
                 <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
                 <h6 class="modal-title">Fund Transfer / Return</h6>
             </div>
-            <form id="transferForm" action="{{route('fundtransaction')}}" method="post">
+            <form id="transferForm" action="<?php echo e(route('fundtransaction')); ?>" method="post">
                 <div class="modal-body">
                     <div class="row">
                         <input type="hidden" name="payee_id">
-                        {{ csrf_field() }}
+                        <?php echo e(csrf_field()); ?>
+
                         <div class="form-group col-md-6">
                             <label>Wallet Type</label>
                             <select name="wallet" class="form-control select" id="select" required>
@@ -102,12 +103,12 @@
                             <label>Fund Action</label>
                             <select name="type" class="form-control select" id="select" required>
                                 <option value="">Select Action</option>
-                                @if (Myhelper::can('fund_transfer'))
+                                <?php if(Myhelper::can('fund_transfer')): ?>
                                 <option value="transfer">Transfer</option>
-                                @endif
-                                @if (Myhelper::can('fund_return'))
+                                <?php endif; ?>
+                                <?php if(Myhelper::can('fund_return')): ?>
                                 <option value="return">Return</option>
-                                @endif
+                                <?php endif; ?>
                             </select>
                         </div>
                         <div class="form-group col-md-6">
@@ -125,14 +126,14 @@
                             <textarea name="remark" class="form-control" rows="3" placeholder="Enter Remark"></textarea>
                         </div>
                     </div>
-                    @if(Myhelper::hasRole('admin'))
+                    <?php if(Myhelper::hasRole('admin')): ?>
                         <div class="row">
                             <div class="form-group col-md-4">
                                 <label>Security Pin</label>
                                 <input type="password" name="mpin" autocomplete="off" class="form-control" required="">
                             </div>
                         </div>
-                    @endif
+                    <?php endif; ?>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
@@ -143,7 +144,7 @@
     </div>
 </div>
 
-@if (isset($permissions) && $permissions && Myhelper::can('member_permission_change'))
+<?php if(isset($permissions) && $permissions && Myhelper::can('member_permission_change')): ?>
     <div id="permissionModal" class="modal fade" tabindex="-1" aria-labelledby="permissionModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
@@ -155,8 +156,8 @@
                 </div>
 
                 <!-- Form -->
-                <form id="permissionForm" action="{{ route('toolssetpermission') }}" method="POST">
-                    @csrf
+                <form id="permissionForm" action="<?php echo e(route('toolssetpermission')); ?>" method="POST">
+                    <?php echo csrf_field(); ?>
                     <input type="hidden" name="payee_id">
 
                     <div class="modal-body p-0">
@@ -176,32 +177,34 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($permissions as $key => $value)
+                                <?php $__currentLoopData = $permissions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <tr>
                                         <td>
                                             <div class="form-check">
-                                                <input class="form-check-input selectall" type="checkbox" id="cat-{{ ucfirst($key) }}">
-                                                <label class="form-check-label fw-bold" for="cat-{{ ucfirst($key) }}">
-                                                    {{ ucfirst($key) }}
+                                                <input class="form-check-input selectall" type="checkbox" id="cat-<?php echo e(ucfirst($key)); ?>">
+                                                <label class="form-check-label fw-bold" for="cat-<?php echo e(ucfirst($key)); ?>">
+                                                    <?php echo e(ucfirst($key)); ?>
+
                                                 </label>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="row">
-                                                @foreach ($value as $permission)
+                                                <?php $__currentLoopData = $value; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $permission): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                     <div class="col-md-4">
                                                         <div class="form-check">
-                                                            <input class="form-check-input case" type="checkbox" id="perm-{{ $permission->id }}" name="permissions[]" value="{{ $permission->id }}">
-                                                            <label class="form-check-label" for="perm-{{ $permission->id }}">
-                                                                {{ $permission->name }}
+                                                            <input class="form-check-input case" type="checkbox" id="perm-<?php echo e($permission->id); ?>" name="permissions[]" value="<?php echo e($permission->id); ?>">
+                                                            <label class="form-check-label" for="perm-<?php echo e($permission->id); ?>">
+                                                                <?php echo e($permission->name); ?>
+
                                                             </label>
                                                         </div>
                                                     </div>
-                                                @endforeach
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                             </div>
                                         </td>
                                     </tr>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </tbody>
                         </table>
                     </div>
@@ -217,7 +220,7 @@
             </div>
         </div>
     </div>
-@endif
+<?php endif; ?>
 
 
 <div id="commissionModal" class="modal fade right" role="dialog" data-backdrop="false">
@@ -227,9 +230,10 @@
                 <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="modal-title">Scheme Manager</h4>
             </div>
-            <form id="schemeForm" method="post" action="{{ route('profileUpdate') }}">
+            <form id="schemeForm" method="post" action="<?php echo e(route('profileUpdate')); ?>">
                 <div class="modal-body">
-                    {!! csrf_field() !!}
+                    <?php echo csrf_field(); ?>
+
                     <input type="hidden" name="id">
                     <input type="hidden" name="actiontype" value="scheme">
                     <div class="row">
@@ -237,17 +241,17 @@
                             <label>Scheme</label>
                             <select class="form-control select" name="scheme_id" required="" onchange="viewCommission(this)">
                                 <option value="">Select Scheme</option>
-                                @foreach ($scheme as $element)
-                                    <option value="{{$element->id}}">{{$element->name}}</option>
-                                @endforeach
+                                <?php $__currentLoopData = $scheme; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($element->id); ?>"><?php echo e($element->name); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
                         </div>
-                        @if(Myhelper::hasRole('admin'))
+                        <?php if(Myhelper::hasRole('admin')): ?>
                             <div class="form-group col-md-4">
                                 <label>Security Pin</label>
                                 <input type="password" name="mpin" autocomplete="off" class="form-control" required="">
                             </div>
-                        @endif
+                        <?php endif; ?>
                         <div class="form-group col-md-4">
                             <label style="width:100%">&nbsp;</label>
                             <button class="btn btn-info btn-raised legitRipple" type="submit" data-loading-text="<i class='fa fa-spin fa-spinner'></i> Submitting">Submit</button>
@@ -266,7 +270,7 @@
     </div>
 </div>
 
-@if (Myhelper::can('member_stock_manager'))
+<?php if(Myhelper::can('member_stock_manager')): ?>
     <div id="stockModal" class="modal fade" role="dialog" data-backdrop="false">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
@@ -274,9 +278,10 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     <h4 class="modal-title">Add Stock</h4>
                 </div>
-                <form id="stockForm" method="post" action="{{ route('profileUpdate') }}">
+                <form id="stockForm" method="post" action="<?php echo e(route('profileUpdate')); ?>">
                     <div class="modal-body">
-                        {!! csrf_field() !!}
+                        <?php echo csrf_field(); ?>
+
                         <input type="hidden" name="id">
                         <input type="hidden" name="actiontype" value="stock">
                         <div class="row">
@@ -286,14 +291,14 @@
                             </div>
                         </div>
 
-                        @if(Myhelper::hasRole('admin'))
+                        <?php if(Myhelper::hasRole('admin')): ?>
                             <div class="row">
                                 <div class="form-group col-md-12">
                                     <label>Security Pin</label>
                                     <input type="password" name="mpin" autocomplete="off" class="form-control" required="">
                                 </div>
                             </div>
-                        @endif
+                        <?php endif; ?>
                     </div>
 
                     <div class="modal-footer">
@@ -304,9 +309,9 @@
             </div>
         </div>
     </div>
-@endif
+<?php endif; ?>
 
-@if (Myhelper::can('member_kyc_update'))
+<?php if(Myhelper::can('member_kyc_update')): ?>
     <div id="kycUpdateModal" class="modal fade" data-backdrop="false" data-keyboard="false">
         <div class="modal-dialog modal-sm modal-dialog-centered">
             <div class="modal-content">
@@ -314,13 +319,14 @@
                     <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
                     <h6 class="modal-title">Kyc Manager</h6>
                 </div>
-                <form id="kycUpdateForm" action="{{route('profileUpdate')}}" method="post">
+                <form id="kycUpdateForm" action="<?php echo e(route('profileUpdate')); ?>" method="post">
                     <div class="modal-body">
                         <div class="row">
                             <input type="hidden" name="id">
                             <input type="hidden" name="actiontype" value="kyc_change">
                             
-                            {{ csrf_field() }}
+                            <?php echo e(csrf_field()); ?>
+
                             <div class="form-group col-md-12">
                                 <label>Kyc Status</label>
                                 <select name="kyc" class="form-control select" id="select" required>
@@ -347,9 +353,9 @@
             </div>
         </div>
     </div>
-@endif
+<?php endif; ?>
 
-@if (Myhelper::can('locked_amount'))
+<?php if(Myhelper::can('locked_amount')): ?>
     <div id="lockedAmountModal" class="modal fade" role="dialog" data-backdrop="false">
         <div class="modal-dialog modal-sm modal-dialog-centered">
             <div class="modal-content ">
@@ -357,9 +363,10 @@
                     <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">×</button>
                     <h4 class="modal-title">Locked Amount</h4>
                 </div>
-                <form id="lockedAmountForm" method="post" action="{{ route('profileUpdate') }}">
+                <form id="lockedAmountForm" method="post" action="<?php echo e(route('profileUpdate')); ?>">
                     <div class="modal-body">
-                        {!! csrf_field() !!}
+                        <?php echo csrf_field(); ?>
+
                         <input type="hidden" name="id">
                         <input type="hidden" name="actiontype" value="locakedAmount">
                         <div class="row">
@@ -369,14 +376,14 @@
                             </div>
                         </div>
 
-                        @if(Myhelper::hasRole('admin'))
+                        <?php if(Myhelper::hasRole('admin')): ?>
                             <div class="row">
                                 <div class="form-group col-md-12">
                                     <label>Security Pin</label>
                                     <input type="password" name="mpin" autocomplete="off" class="form-control" required="">
                                 </div>
                             </div>
-                        @endif
+                        <?php endif; ?>
                     </div>
 
                     <div class="modal-footer">
@@ -387,25 +394,25 @@
             </div>
         </div>
     </div>
-@endif
+<?php endif; ?>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@push('style')
+<?php $__env->startPush('style'); ?>
 <style>
     .md-checkbox {
         margin: 5px 0px;
     }
 </style>
-@endpush
+<?php $__env->stopPush(); ?>
 
-@push('script')
+<?php $__env->startPush('script'); ?>
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $('[name="dataType"]').val("{{$type}}");
+        $('[name="dataType"]').val("<?php echo e($type); ?>");
 
-        var url = "{{url('statement/list/fetch')}}/{{$type}}/0";
+        var url = "<?php echo e(url('statement/list/fetch')); ?>/<?php echo e($type); ?>/0";
 var onDraw = function() {
     $('button.toggle-status').off('click').on('click', function(evt){
         evt.stopPropagation();
@@ -415,7 +422,7 @@ var onDraw = function() {
         var newStatus = (currentStatus === "Active") ? "block" : "active"; // toggle
 
         $.ajax({
-            url: '{{ route('profileUpdate') }}',
+            url: '<?php echo e(route('profileUpdate')); ?>',
             type: 'post',
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -464,7 +471,7 @@ var onDraw = function() {
             { "data": "parents"},
             { "data" : "agentcode",
                 render:function(data, type, full, meta){
-                    return `<a href="{{url('profile/view')}}/`+full.id+`" target="_blank">`+full.name+`</a><br>` + full.agentcode;
+                    return `<a href="<?php echo e(url('profile/view')); ?>/`+full.id+`" target="_blank">`+full.name+`</a><br>` + full.agentcode;
                 }
             },
             { "data" : "email",
@@ -482,12 +489,12 @@ var onDraw = function() {
                     var out  = '';
                     var menu = ``;
 
-                    menu += `<li style="padding:15px 15px 5px;text-transform:capitalize;"><a href="{{url('statement/report/chargeback/')}}/`+full.id+`" target="_blank"><i class="icon-paragraph-justify3"></i> Charge Back</a></li>`;
-                    menu += `<li style="padding:5px 15px;text-transform:capitalize;"><a href="{{url('statement/report/payin/')}}/`+full.id+`" target="_blank"><i class="icon-paragraph-justify3"></i> Pay-In</a></li>`;
-                    menu += `<li style="padding:5px 15px;text-transform:capitalize;"><a href="{{url('statement/report/payout/')}}/`+full.id+`" target="_blank"><i class="icon-paragraph-justify3"></i> Pay-Out Back</a></li>`;
-                    menu += `<li style="padding:5px 15px;text-transform:capitalize;"><a href="{{url('statement/report/upiintent/')}}/`+full.id+`" target="_blank"><i class="icon-paragraph-justify3"></i> Upi Intent</a></li>`;
-                    menu += `<li style="padding:5px 15px;text-transform:capitalize;"><a href="{{url('statement/report/mainwallet/')}}/`+full.id+`" target="_blank"><i class="icon-paragraph-justify3"></i> Main Wallet Ladger</a></li>`;
-                    menu += `<li style="padding:5px 15px;text-transform:capitalize;"><a href="{{url('statement/report/payoutwallet/')}}/`+full.id+`" target="_blank"><i class="icon-paragraph-justify3"></i> Payout Wallet Ladger</a></li>`;
+                    menu += `<li style="padding:15px 15px 5px;text-transform:capitalize;"><a href="<?php echo e(url('statement/report/chargeback/')); ?>/`+full.id+`" target="_blank"><i class="icon-paragraph-justify3"></i> Charge Back</a></li>`;
+                    menu += `<li style="padding:5px 15px;text-transform:capitalize;"><a href="<?php echo e(url('statement/report/payin/')); ?>/`+full.id+`" target="_blank"><i class="icon-paragraph-justify3"></i> Pay-In</a></li>`;
+                    menu += `<li style="padding:5px 15px;text-transform:capitalize;"><a href="<?php echo e(url('statement/report/payout/')); ?>/`+full.id+`" target="_blank"><i class="icon-paragraph-justify3"></i> Pay-Out Back</a></li>`;
+                    menu += `<li style="padding:5px 15px;text-transform:capitalize;"><a href="<?php echo e(url('statement/report/upiintent/')); ?>/`+full.id+`" target="_blank"><i class="icon-paragraph-justify3"></i> Upi Intent</a></li>`;
+                    menu += `<li style="padding:5px 15px;text-transform:capitalize;"><a href="<?php echo e(url('statement/report/mainwallet/')); ?>/`+full.id+`" target="_blank"><i class="icon-paragraph-justify3"></i> Main Wallet Ladger</a></li>`;
+                    menu += `<li style="padding:5px 15px;text-transform:capitalize;"><a href="<?php echo e(url('statement/report/payoutwallet/')); ?>/`+full.id+`" target="_blank"><i class="icon-paragraph-justify3"></i> Payout Wallet Ladger</a></li>`;
 
                     out +=  `<ul class="icons-list">
                                 <li class="dropdown">
@@ -509,29 +516,29 @@ var onDraw = function() {
                     var out = '';
                     var menu = ``;
                     
-                    @if (Myhelper::can('service_manager'))
-                        menu += `<li style="padding:15px 15px 5px;text-transform:capitalize;"><a href="{{url('setup/servicemanage-collection')}}/`+full.id+`" target="_blank"><i class="icon-arrow-right5"></i>Service Manager</a></li>`;
-                    @endif
+                    <?php if(Myhelper::can('service_manager')): ?>
+                        menu += `<li style="padding:15px 15px 5px;text-transform:capitalize;"><a href="<?php echo e(url('setup/servicemanage-collection')); ?>/`+full.id+`" target="_blank"><i class="icon-arrow-right5"></i>Service Manager</a></li>`;
+                    <?php endif; ?>
 
-                    @if (Myhelper::can(['fund_transfer', 'fund_return']))
+                    <?php if(Myhelper::can(['fund_transfer', 'fund_return'])): ?>
                         menu += `<li style="padding:5px 15px;text-transform:capitalize;"><a href="javascript:void(0)" onclick="transfer(`+full.id+`)"><i class="icon-arrow-right5"></i>  Wallet Transfer</a></li>`;
-                    @endif
+                    <?php endif; ?>
                     
-                    @if (Myhelper::can('member_scheme_update'))
+                    <?php if(Myhelper::can('member_scheme_update')): ?>
                         menu += `<li style="padding:5px 15px;text-transform:capitalize;"><a href="javascript:void(0)" onclick="scheme(`+full.id+`, '`+full.scheme_id+`')"><i class="icon-arrow-right5"></i> Scheme</a></li>`;
-                    @endif
+                    <?php endif; ?>
                     
-                    @if (Myhelper::can("locked_amount"))
+                    <?php if(Myhelper::can("locked_amount")): ?>
                         menu += `<li style="padding:5px 15px;text-transform:capitalize;"><a href="javascript:void(0)" onclick="lockedAmount('`+full.id+`', '`+full.lockedamount+`')"><i class="icon-arrow-right5"></i> Locked Amount</a></li>`;
-                    @endif
+                    <?php endif; ?>
 
-                    @if (Myhelper::can('member_permission_change'))
+                    <?php if(Myhelper::can('member_permission_change')): ?>
                         menu += `<li style="padding:5px 15px;text-transform:capitalize;"><a href="javascript:void(0)" onclick="getPermission(`+full.id+`)"><i class="icon-arrow-right5"></i> Permission</a></li>`;
-                    @endif
+                    <?php endif; ?>
 
-                    @if (Myhelper::can('member_kyc_update'))
+                    <?php if(Myhelper::can('member_kyc_update')): ?>
                         menu += `<li style="padding:5px 15px;text-transform:capitalize;"><a href="javascript:void(0)" onclick="kycManage(`+full.id+`, '`+full.kyc+`', '`+full.remark+`')"><i class="icon-arrow-right5"></i> Kyc Manager</a></li>`;
-                    @endif
+                    <?php endif; ?>
 
                     out +=  `<ul class="icons-list">
                                 <li class="dropdown">
@@ -854,7 +861,7 @@ var onDraw = function() {
     function getPermission(id) {
         if(id.length != ''){
             $.ajax({
-                url: '{{url('tools/get/permission')}}/'+id,
+                url: '<?php echo e(url('tools/get/permission')); ?>/'+id,
                 type: 'post',
                 dataType: 'json',
                 headers: {
@@ -911,7 +918,7 @@ var onDraw = function() {
             $('#loader').show(); // Assuming you have a loader element with ID 'loader'
     
             $.ajax({
-                url: '{{route("getMemberCommission")}}',
+                url: '<?php echo e(route("getMemberCommission")); ?>',
                 type: 'POST',
                 dataType: 'json',
                 headers: {
@@ -956,4 +963,5 @@ var onDraw = function() {
         $('#stockModal').modal('show');
     }
 </script>
-@endpush
+<?php $__env->stopPush(); ?>
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\xampp\htdocs\mdrpay\resources\views/member/index.blade.php ENDPATH**/ ?>
